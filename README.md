@@ -114,67 +114,141 @@ In Webflow embed code:
 window.globalScripts = ['analytics'];
 ```
 
-### Page-Specific Script
+### Page-Specific Script (Single)
 ```javascript
-// src/scripts/contact-form.js
-console.log('Contact form validation loaded');
+// src/scripts/confetti.js
+console.log('Confetti script loaded for this page');
+```
+
+In that page's settings (Custom Code → Before </body> tag):
+```html
+<script>
+  window.pageScripts = ['confetti'];
+</script>
+```
+
+### Multiple Scripts on One Page
+```javascript
+// src/scripts/slider.js
+console.log('Slider initialized');
+
+// src/scripts/testimonials.js
+console.log('Testimonials loaded');
 ```
 
 In that page's settings:
 ```html
-<script>window.pageScript = 'contact-form';</script>
-```
-
-### Multiple Scripts on One Page
-```html
 <script>
-window.pageScripts = ['slider', 'testimonials', 'animations'];
+  window.pageScripts = ['slider', 'testimonials'];
 </script>
 ```
 
-## 🎓 Step-by-Step Setup Guide
+## 🎓 Complete Setup Guide
 
-### 1. Create Your Project
+### Step 1: Create Your Project
+Open a terminal in your projects folder (e.g., `Desktop/Projects`) and run:
 ```bash
 npx create-webflow-scripts my-awesome-site
-cd my-awesome-site
 ```
 
-### 2. Answer the Setup Questions
-- GitHub username (e.g., "johndoe")
-- Repository name (e.g., "my-awesome-site")
-- Webflow staging domain (e.g., "awesome.webflow.io")
-- Production domain (optional)
-- Use GitHub Pages? (recommended: yes)
+Go through the setup wizard:
+- Enter your GitHub username
+- Enter repository name (recommend: same as folder name)
+- Enter your Webflow staging domain (e.g., "awesome.webflow.io")
+- Enter production domain (optional, press Enter to skip)
+- Choose to use GitHub Pages (recommended: yes)
 
-### 3. Add to Webflow
-1. Copy the generated embed code from `webflow-embed-code.html`
-2. Go to Webflow → Site Settings → Custom Code → Head
-3. Paste the code
-4. Publish your Webflow site
-
-### 4. Start Developing
+### Step 2: Install Dependencies and Start Development
+Open a NEW terminal window in the newly created project folder:
 ```bash
+cd my-awesome-site
+npm install
 npm run dev
 ```
+Leave this running - it's your development server!
 
-Open your `.webflow.io` site and check the console - you should see your scripts loading!
+### Step 3: Create GitHub Repository
+1. Go to [github.com/new](https://github.com/new)
+2. Name it the same as your folder (e.g., "my-awesome-site")
+3. DON'T initialize with README (you already have one)
+4. Create repository
+5. Copy the repository URL
 
-### 5. Deploy to Production
+### Step 4: Push Code to GitHub
+In your project folder, run:
 ```bash
 git init
 git add .
 git commit -m "Initial setup"
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git remote add origin YOUR_GITHUB_REPO_URL
 git push -u origin main
 ```
 
-Then in GitHub:
-1. Go to Settings → Pages
-2. Source: GitHub Actions
-3. Save
+### Step 5: Enable GitHub Pages
+1. Go to your repo on GitHub
+2. Click Settings → Pages
+3. Under "Source", select "GitHub Actions"
+4. Save
 
-Every push to `main` now auto-deploys to production!
+Your scripts will now auto-deploy when you push to main!
+
+### Step 6: Add to Webflow and Test
+1. Copy the embed code from `webflow-embed-code.html`
+2. In Webflow: Site Settings → Custom Code → Head Code
+3. Paste the embed code
+4. Publish your Webflow site
+5. Open your `.webflow.io` site
+6. Open browser console (F12)
+7. You should see "Alert script loaded!" after 5 seconds
+
+✅ **Setup Complete!** You're now ready to develop scripts with hot reload!
+
+## 🚀 Working with Scripts
+
+### Creating New Scripts
+```bash
+npm run new-script my-script-name
+# or manually:
+# webflow-scripts new my-script-name
+```
+
+This creates `src/scripts/my-script-name.js` with a template.
+
+To use it:
+- **Global (all pages):** Add `'my-script-name'` to `window.globalScripts` in your embed code
+- **Specific page:** Add to that page's custom code:
+  ```html
+  <script>
+    window.pageScripts = ['my-script-name'];
+  </script>
+  ```
+
+### Testing Production Mode Locally
+Want to test production scripts before going live? In your Webflow embed code:
+
+1. Find this line:
+   ```javascript
+   // window.SCRIPT_BASE_URL = 'https://yourusername.github.io/yourrepo/src';
+   ```
+
+2. Uncomment it (remove the `//`):
+   ```javascript
+   window.SCRIPT_BASE_URL = 'https://yourusername.github.io/yourrepo/src';
+   ```
+
+3. Publish to Webflow and test - it will now load from GitHub Pages instead of localhost
+
+4. **Don't forget to comment it back out** when done testing!
+
+### Deploying Updates
+After making changes to your scripts:
+```bash
+git add .
+git commit -m "Update scripts"
+git push
+```
+
+GitHub Actions will automatically build and deploy to GitHub Pages (takes ~2 minutes).
 
 ## ❓ FAQ
 
