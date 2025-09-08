@@ -174,10 +174,13 @@ Copy this code to your Webflow Site Settings → Custom Code → Head:
 \`\`\`html
 <script>
 (function() {
+  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
+  // window.SCRIPT_BASE_URL = '${githubPagesUrl}/dist';
+  
   const isDev = location.hostname.includes('.webflow.io');
-  const baseUrl = isDev 
+  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : '${githubPagesUrl}';
+    : '${githubPagesUrl}/dist');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Add your global scripts here
