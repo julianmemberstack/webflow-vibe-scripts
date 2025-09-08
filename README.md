@@ -1,58 +1,41 @@
-# Webflow Script Router System
+# Create Webflow Scripts - Stop Copy-Pasting Code to Webflow!
 
-Stop copy-pasting code to Webflow. Write JavaScript locally, see changes instantly, and deploy automatically.
+Write JavaScript locally, see changes instantly, deploy automatically. No more tiny code boxes in Webflow!
 
-## ✨ What This Does
+[![npm version](https://img.shields.io/npm/v/create-webflow-scripts.svg)](https://www.npmjs.com/package/create-webflow-scripts)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- 🔥 **Hot reload development** - Edit locally, see changes instantly on staging
-- 🚀 **Automatic deployment** - Push to GitHub, live in 2 minutes
-- 📝 **Real code editor** - Use VS Code instead of Webflow's tiny box
-- 🎯 **Smart routing** - Load scripts globally or per-page
-- 💾 **Version control** - All your code in GitHub
+## 🚀 Installation
 
-## 📁 Project Structure
-
-```
-webflow-vibe-scripts/
-├── src/
-│   ├── router.js          # Main router (don't modify)
-│   └── scripts/           # ALL your scripts go here
-│       ├── alert.js       # Test alert (shows after 5 seconds)
-│       └── [your-script].js
-├── dist/                  # Production build (auto-generated)
-├── package.json
-└── vite.config.js
-```
-
-**Note:** No pages/ folder! All scripts go in `src/scripts/`. You control where they load using Webflow settings.
-
-## 🚀 Quick Start
-
-### 1. Clone & Install
+Create your own Webflow scripts project in seconds:
 
 ```bash
-git clone https://github.com/julianmemberstack/webflow-vibe-scripts.git
-cd webflow-vibe-scripts
-npm install
+npx create-webflow-scripts my-project
+cd my-project
+npm run dev
 ```
 
-### 2. Add to Webflow Site Settings
+That's it! The interactive setup will guide you through personalizing everything for YOUR project.
 
-**Site Settings → Custom Code → Head Code:**
+## 🎬 Live Demo
 
+Want to see it in action? Check out the working demo:
+
+- **Demo Repository:** [github.com/julianmemberstack/webflow-vibe-scripts](https://github.com/julianmemberstack/webflow-vibe-scripts)
+- **Live Scripts:** [julianmemberstack.github.io/webflow-vibe-scripts](https://julianmemberstack.github.io/webflow-vibe-scripts)
+- **Example Webflow Site:** *(Add your demo .webflow.io site here)*
+
+### Demo Embed Code (This is what I use):
 ```html
 <script>
 (function() {
-  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
-  // window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
-  
   const isDev = location.hostname.includes('.webflow.io');
-  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
+  const baseUrl = isDev 
     ? 'http://localhost:3000/src' 
-    : 'https://julianmemberstack.github.io/webflow-vibe-scripts');
+    : 'https://julianmemberstack.github.io/webflow-vibe-scripts';
   
   // Scripts that load on EVERY page
-  window.globalScripts = ['alert'];  // Add your global scripts here
+  window.globalScripts = ['alert'];
   
   // Load the router
   const script = document.createElement('script');
@@ -62,232 +45,177 @@ npm install
 </script>
 ```
 
-### 3. Start Development
+**Note:** When YOU run `npx create-webflow-scripts`, you'll get YOUR OWN personalized embed code with YOUR GitHub username and repo!
 
-```bash
-npm run dev
-```
+## 🎯 What Problems This Solves
 
-### 4. Test It
+| Problem | Solution |
+|---------|----------|
+| **Tiny code editor in Webflow** | Write in VS Code or any editor |
+| **No way to test code** | Hot reload - see changes instantly |
+| **Code gets lost/overwritten** | Everything in GitHub with version control |
+| **Hard to organize scripts** | Clean file structure, one script per file |
+| **Slow publish cycle** | Changes appear instantly in development |
 
-1. Publish your Webflow site to staging
-2. Open your `.webflow.io` site
-3. After 5 seconds, you'll see an alert confirming it works!
+## 📦 What You Get After Installation
 
-## 📝 How to Use
+When you run `npx create-webflow-scripts my-project`, you get:
 
-### Add a Global Script (loads on every page)
-
-1. **Create the script:** `src/scripts/tracking.js`
-2. **Update Webflow site settings:**
-   ```javascript
-   window.globalScripts = ['alert', 'tracking'];
+1. **Personalized Project Structure:**
    ```
-3. **Publish Webflow** (required when changing script lists)
-
-### Add a Page-Specific Script
-
-1. **Create the script:** `src/scripts/homepage-hero.js`
-2. **In that page's settings → Custom Code → Before </body>:**
-   ```html
-   <!-- Single script -->
-   <script>window.pageScript = 'homepage-hero';</script>
-   
-   <!-- Multiple scripts -->
-   <script>window.pageScripts = ['slider', 'testimonials'];</script>
+   my-project/
+   ├── src/
+   │   ├── router.js          # Script router (customized with YOUR URLs)
+   │   └── scripts/           
+   │       └── alert.js       # Example script
+   ├── dist/                  # Production build
+   ├── .github/workflows/     # GitHub Pages auto-deploy
+   ├── package.json           # Your project config
+   └── README.md              # Instructions with YOUR GitHub info!
    ```
-3. **Publish Webflow**
 
-### Edit Existing Scripts
+2. **Custom README** with:
+   - YOUR GitHub username
+   - YOUR repository name
+   - YOUR domains
+   - YOUR personalized embed code
 
-1. Edit any file in `src/scripts/`
-2. Save the file
-3. Refresh your browser - changes appear instantly!
-4. **No Webflow publish needed!**
+3. **Ready-to-use Commands:**
+   - `npm run dev` - Start development
+   - `npm run build` - Build for production
+   - `npm run new-script` - Create new scripts
+   - `npm run embed-code` - Show your embed code
 
-## 🔄 Development Workflow
+## 🛠 How It Works
 
-### Daily Development
+### Development Mode
+1. Your Webflow staging site (.webflow.io) loads scripts from `localhost:3000`
+2. Edit files locally → Save → Refresh browser → See changes instantly
+3. No Webflow publish needed for JavaScript changes!
 
-```bash
-# Start dev server (keep running)
-npm run dev
+### Production Mode
+1. Push to GitHub → GitHub Actions builds automatically
+2. Scripts deployed to GitHub Pages (free hosting!)
+3. Your live site loads from `https://[your-username].github.io/[your-repo]`
 
-# Edit your scripts
-# Save files
-# Refresh browser - instant updates!
-```
+## 📝 Usage Examples
 
-### Test Production Scripts (Without Going Live)
-
-Sometimes you need to test production scripts on your staging site:
-
-1. **Uncomment the override line** in Webflow site settings:
-```javascript
-// Change from:
-// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
-
-// To:
-window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
-```
-
-2. **Publish Webflow** - now staging loads production scripts!
-
-3. **Remember to comment it back** when done testing
-
-### Deploy to Production
-
-```bash
-git add .
-git commit -m "Update scripts"
-git push
-```
-
-Wait ~2 minutes → Changes are live on your production site!
-
-## 🎯 Examples
-
-### Example 1: Add Analytics to All Pages
-
+### Global Script (Loads on Every Page)
 ```javascript
 // src/scripts/analytics.js
-console.log('Analytics loaded');
-
-// Track page views
-if (typeof gtag !== 'undefined') {
-  gtag('event', 'page_view', {
-    page_path: window.location.pathname
-  });
-}
+console.log('Analytics loaded on every page');
 ```
 
-Update site settings:
+In Webflow embed code:
 ```javascript
-window.globalScripts = ['alert', 'analytics'];
+window.globalScripts = ['analytics'];
 ```
 
-### Example 2: Add Form Validation to Contact Page
-
+### Page-Specific Script
 ```javascript
 // src/scripts/contact-form.js
-const form = document.querySelector('#contact-form');
-if (form) {
-  form.addEventListener('submit', (e) => {
-    // Your validation logic
-  });
-}
+console.log('Contact form validation loaded');
 ```
 
-On contact page:
+In that page's settings:
 ```html
 <script>window.pageScript = 'contact-form';</script>
 ```
 
-### Example 3: Multiple Scripts on Product Pages
-
-Create scripts:
-- `src/scripts/product-gallery.js`
-- `src/scripts/product-reviews.js`
-- `src/scripts/add-to-cart.js`
-
-On product template:
+### Multiple Scripts on One Page
 ```html
 <script>
-window.pageScripts = ['product-gallery', 'product-reviews', 'add-to-cart'];
+window.pageScripts = ['slider', 'testimonials', 'animations'];
 </script>
 ```
 
-## ⚙️ GitHub Pages Setup (One Time)
+## 🎓 Step-by-Step Setup Guide
 
-1. Go to: https://github.com/julianmemberstack/webflow-vibe-scripts/settings/pages
-2. Under "Build and deployment"
-3. Source: Select **GitHub Actions**
-4. Click Save
-
-That's it! Now every push to `main` auto-deploys.
-
-## 🐛 Troubleshooting
-
-### Scripts not loading?
-
-**Check these in order:**
-
-1. **Is dev server running?** (`npm run dev`)
-2. **Console errors?** Open browser DevTools
-3. **Script names match exactly?** `alert` not `Alert` or `alert.js`
-4. **Did you publish Webflow** after adding script tags?
-
-### Expected Console Output
-
-When working correctly, you'll see:
-```
-Script Router initialized
-Base URL: http://localhost:3000/src
-Environment: Development
-Alert script loaded
-Alert will show in 5 seconds...
-Loaded: scripts/alert
-All scripts loaded successfully
+### 1. Create Your Project
+```bash
+npx create-webflow-scripts my-awesome-site
+cd my-awesome-site
 ```
 
-### Changes not appearing?
+### 2. Answer the Setup Questions
+- GitHub username (e.g., "johndoe")
+- Repository name (e.g., "my-awesome-site")
+- Webflow staging domain (e.g., "awesome.webflow.io")
+- Production domain (optional)
+- Use GitHub Pages? (recommended: yes)
 
-- **Hard refresh:** Cmd+Shift+R (Mac) or Ctrl+F5 (Windows)
-- **Check dev server** didn't crash
-- **Verify file saved** in VS Code
+### 3. Add to Webflow
+1. Copy the generated embed code from `webflow-embed-code.html`
+2. Go to Webflow → Site Settings → Custom Code → Head
+3. Paste the code
+4. Publish your Webflow site
 
-### Production not working?
-
-1. Check GitHub Actions: https://github.com/julianmemberstack/webflow-vibe-scripts/actions
-2. Verify GitHub Pages is enabled (see setup above)
-3. Test the URL directly: https://julianmemberstack.github.io/webflow-vibe-scripts/router.js
-
-### Testing Production Scripts on Staging
-
-Want to test production scripts before going live? Just uncomment one line:
-
-```javascript
-// Change this:
-// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
-
-// To this:
-window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
+### 4. Start Developing
+```bash
+npm run dev
 ```
 
-Now your staging site loads production scripts! Remember to comment it back for normal development.
+Open your `.webflow.io` site and check the console - you should see your scripts loading!
 
-## 📚 Key Concepts
+### 5. Deploy to Production
+```bash
+git init
+git add .
+git commit -m "Initial setup"
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git push -u origin main
+```
 
-### When to Publish Webflow
+Then in GitHub:
+1. Go to Settings → Pages
+2. Source: GitHub Actions
+3. Save
 
-**NEED to publish:**
-- Adding/removing scripts from lists
-- Adding script tags to new pages
-- Changing Webflow elements or styles
+Every push to `main` now auto-deploys to production!
 
-**DON'T need to publish:**
-- Editing JavaScript code
-- Fixing bugs in scripts
-- Adding console.logs
-- Tweaking functionality
+## ❓ FAQ
 
-### Global vs Page Scripts
+### Why not just use Webflow's custom code?
+- **Better editor** - Use VS Code with syntax highlighting, autocomplete, etc.
+- **Version control** - Never lose code, track changes, collaborate
+- **Hot reload** - See changes instantly without publishing
+- **Organization** - Multiple files instead of one giant script block
 
-- **Global scripts** = Load everywhere (analytics, tracking, navigation)
-- **Page scripts** = Load on specific pages (homepage hero, contact form)
+### Is this free to use?
+Yes! The tool is free, and GitHub Pages hosting is free too.
 
-### Critical CSS Warning
+### Can I use this with multiple Webflow projects?
+Yes! Create a separate project for each Webflow site:
+```bash
+npx create-webflow-scripts project-1
+npx create-webflow-scripts project-2
+```
 
-Put critical CSS directly in Webflow! This system is for JavaScript only. Loading CSS via scripts causes flash of unstyled content.
+### Do I need to know Git?
+Basic Git knowledge helps, but the setup guide includes all commands you need.
 
-## 🎉 Benefits
+### Can I add CSS too?
+This tool is for JavaScript only. Keep CSS in Webflow's designer for best performance.
 
-✅ **No more copy-paste** - Edit locally, changes appear instantly  
-✅ **Real debugging** - Use browser DevTools with real files  
-✅ **Version control** - Every change tracked in Git  
-✅ **Team friendly** - Multiple people can work on scripts  
-✅ **Fast iteration** - Test changes in seconds, not minutes  
+## 🤝 Contributing
+
+Found a bug? Have an idea? Contributions welcome!
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
 
 ## 📄 License
 
 MIT - Use this however you want!
+
+## 🆘 Support
+
+- **Issues:** [GitHub Issues](https://github.com/julianmemberstack/webflow-vibe-scripts/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/julianmemberstack/webflow-vibe-scripts/discussions)
+
+---
+
+Created with ❤️ for the Webflow community by [@julianmemberstack](https://github.com/julianmemberstack)
