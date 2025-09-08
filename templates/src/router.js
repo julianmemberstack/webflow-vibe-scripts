@@ -12,7 +12,7 @@
     const isDev = location.hostname.includes('.webflow.io');
     return isDev 
       ? 'http://localhost:3000/src' 
-      : '{{GITHUB_PAGES_URL}}/dist';
+      : '{{GITHUB_PAGES_URL}}/src';
   };
 
   const baseUrl = getBaseUrl();

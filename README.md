@@ -29,10 +29,13 @@ Want to see it in action? Check out the working demo:
 ```html
 <script>
 (function() {
+  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
+  // window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/src';
+  
   const isDev = location.hostname.includes('.webflow.io');
-  const baseUrl = isDev 
+  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : 'https://julianmemberstack.github.io/webflow-vibe-scripts';
+    : 'https://julianmemberstack.github.io/webflow-vibe-scripts/src');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];
