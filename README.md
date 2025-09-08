@@ -43,10 +43,13 @@ npm install
 ```html
 <script>
 (function() {
+  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
+  // window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+  
   const isDev = location.hostname.includes('.webflow.io');
-  const baseUrl = isDev 
+  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+    : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Add your global scripts here
@@ -114,6 +117,23 @@ npm run dev
 # Save files
 # Refresh browser - instant updates!
 ```
+
+### Test Production Scripts (Without Going Live)
+
+Sometimes you need to test production scripts on your staging site:
+
+1. **Uncomment the override line** in Webflow site settings:
+```javascript
+// Change from:
+// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+
+// To:
+window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+```
+
+2. **Publish Webflow** - now staging loads production scripts!
+
+3. **Remember to comment it back** when done testing
 
 ### Deploy to Production
 
@@ -220,7 +240,21 @@ All scripts loaded successfully
 
 1. Check GitHub Actions: https://github.com/julianmemberstack/webflow-vibe-scripts/actions
 2. Verify GitHub Pages is enabled (see setup above)
-3. Test the URL directly: https://julianmemberstack.github.io/webflow-vibe-scripts/dist/router.js
+3. Test the URL directly: https://julianmemberstack.github.io/webflow-vibe-scripts/router.js
+
+### Testing Production Scripts on Staging
+
+Want to test production scripts before going live? Just uncomment one line:
+
+```javascript
+// Change this:
+// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+
+// To this:
+window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+```
+
+Now your staging site loads production scripts! Remember to comment it back for normal development.
 
 ## 📚 Key Concepts
 
