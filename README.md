@@ -256,4 +256,4 @@ Put critical CSS directly in Webflow! This system is for JavaScript only. Loadin
 
 ## 📄 License
 
-MIT - Use this however you want!# Force rebuild
+MIT - Use this however you want!
