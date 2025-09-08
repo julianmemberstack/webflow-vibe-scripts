@@ -9,6 +9,7 @@ A modular script management system for Webflow sites with hot reload development
 - 📦 **Modular scripts** - Organize scripts by feature or page
 - 🚀 **GitHub Pages deployment** - Free, reliable hosting with automatic deployment
 - ⚡ **Minimal Webflow code** - Just a few lines in site settings, one line per page
+- 🎯 **Body scripts only** - Optimized for JavaScript functionality (put critical CSS in Webflow)
 
 ## Quick Start
 
@@ -48,13 +49,8 @@ In **Site Settings > Custom Code > Head Code**, add:
     ? 'http://localhost:3000/src' 
     : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
   
-  // Global scripts to load on every page
-  window.ScriptConfig = {
-    global: {
-      head: ['analytics'],           // Scripts to load in <head>
-      body: ['animations', 'forms']  // Scripts to load in <body>
-    }
-  };
+  // Scripts that load on EVERY page
+  window.globalScripts = ['animations', 'forms'];
   
   // Load the router
   const script = document.createElement('script');
@@ -69,16 +65,11 @@ In **Site Settings > Custom Code > Head Code**, add:
 In any page's custom code section, add:
 
 ```html
-<!-- Simple: Load one script -->
+<!-- Load one script -->
 <script>window.pageScript = 'home';</script>
 
-<!-- Advanced: Multiple scripts with placement -->
-<script>
-window.pageScripts = {
-  head: ['critical-styles'],
-  body: ['slider', 'testimonials']
-};
-</script>
+<!-- Load multiple scripts -->
+<script>window.pageScripts = ['slider', 'testimonials'];</script>
 ```
 
 ## Project Structure

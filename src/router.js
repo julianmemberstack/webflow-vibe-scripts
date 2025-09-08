@@ -17,8 +17,8 @@
 
   const baseUrl = getBaseUrl();
   
-  // Script loader utility
-  const loadScript = (scriptPath, placement = 'body') => {
+  // Script loader utility - always loads in body for better performance
+  const loadScript = (scriptPath) => {
     return new Promise((resolve, reject) => {
       // Check if script already loaded
       const existingScript = document.querySelector(`script[data-script-id="${scriptPath}"]`);
@@ -43,9 +43,8 @@
         reject(new Error(`Failed to load script: ${scriptPath}`));
       };
       
-      // Place script in head or body
-      const target = placement === 'head' ? document.head : document.body;
-      target.appendChild(script);
+      // Always append to body for better performance
+      document.body.appendChild(script);
     });
   };
 
@@ -86,37 +85,26 @@
     console.log('Environment:', location.hostname.includes('.webflow.io') ? 'Development' : 'Production');
 
     try {
-      // Load global scripts from ScriptConfig if defined
-      if (window.ScriptConfig && window.ScriptConfig.global) {
-        const { head = [], body = [] } = window.ScriptConfig.global;
-        
-        // Load head scripts
-        for (const script of head) {
-          await loadScript(`scripts/${script}`, 'head');
-        }
-        
-        // Load body scripts
-        for (const script of body) {
-          await loadScript(`scripts/${script}`, 'body');
+      // Load global scripts (these load on every page)
+      if (window.globalScripts && window.globalScripts.length > 0) {
+        console.log('Loading global scripts:', window.globalScripts);
+        for (const script of window.globalScripts) {
+          await loadScript(`scripts/${script}`);
         }
       }
 
       // Load page-specific scripts
       // Simple format: window.pageScript = 'home'
       if (window.pageScript) {
-        await loadScript(`pages/${window.pageScript}`, 'body');
+        console.log('Loading page script:', window.pageScript);
+        await loadScript(`pages/${window.pageScript}`);
       }
 
-      // Advanced format: window.pageScripts = { head: [...], body: [...] }
-      if (window.pageScripts) {
-        const { head = [], body = [] } = window.pageScripts;
-        
-        for (const script of head) {
-          await loadScript(`pages/${script}`, 'head');
-        }
-        
-        for (const script of body) {
-          await loadScript(`pages/${script}`, 'body');
+      // Multiple scripts format: window.pageScripts = ['script1', 'script2']
+      if (window.pageScripts && Array.isArray(window.pageScripts)) {
+        console.log('Loading page scripts:', window.pageScripts);
+        for (const script of window.pageScripts) {
+          await loadScript(`pages/${script}`);
         }
       }
 

@@ -12,15 +12,10 @@ Add this code to **Site Settings → Custom Code → Head Code**:
     ? 'http://localhost:3000/src' 
     : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
   
-  // Configure which scripts load globally on every page
-  window.ScriptConfig = {
-    global: {
-      head: ['analytics'],          // Scripts that need to load in <head>
-      body: ['animations', 'forms'] // Scripts that load in <body>
-    }
-  };
+  // Scripts that load on EVERY page
+  window.globalScripts = ['animations', 'forms'];
   
-  // Load the main router
+  // Load the router
   const script = document.createElement('script');
   script.src = baseUrl + '/router.js';
   document.head.appendChild(script);
@@ -32,28 +27,17 @@ Add this code to **Site Settings → Custom Code → Head Code**:
 
 Add these to individual page settings or in an HTML Embed on the page:
 
-### Option A: Simple (One Script)
+### Option A: One Script
 ```html
 <script>window.pageScript = 'home';</script>
 ```
 
 ### Option B: Multiple Scripts
 ```html
-<script>
-window.pageScripts = {
-  head: ['critical-styles'],     // Load in <head>
-  body: ['slider', 'gallery']    // Load in <body>
-};
-</script>
+<script>window.pageScripts = ['slider', 'gallery'];</script>
 ```
 
-### Option C: With Styles
-```html
-<script>
-window.pageScript = 'contact';
-window.pageStyles = ['contact-form'];  // Loads contact-form.css
-</script>
-```
+**⚠️ Important:** Put critical CSS and head scripts directly in Webflow's Custom Code! This system is optimized for JavaScript functionality that can load after the page renders.
 
 ## Step 3: Testing Your Setup
 
