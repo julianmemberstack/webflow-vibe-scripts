@@ -44,12 +44,12 @@ npm install
 <script>
 (function() {
   // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
-  // window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+  // window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
   
   const isDev = location.hostname.includes('.webflow.io');
   const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist');
+    : 'https://julianmemberstack.github.io/webflow-vibe-scripts');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Add your global scripts here
@@ -125,10 +125,10 @@ Sometimes you need to test production scripts on your staging site:
 1. **Uncomment the override line** in Webflow site settings:
 ```javascript
 // Change from:
-// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
 
 // To:
-window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
 ```
 
 2. **Publish Webflow** - now staging loads production scripts!
@@ -248,10 +248,10 @@ Want to test production scripts before going live? Just uncomment one line:
 
 ```javascript
 // Change this:
-// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+// window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
 
 // To this:
-window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+window.SCRIPT_BASE_URL = 'https://julianmemberstack.github.io/webflow-vibe-scripts';
 ```
 
 Now your staging site loads production scripts! Remember to comment it back for normal development.

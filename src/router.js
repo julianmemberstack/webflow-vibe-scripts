@@ -12,7 +12,7 @@
     const isDev = location.hostname.includes('.webflow.io');
     return isDev 
       ? 'http://localhost:3000/src' 
-      : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
+      : 'https://julianmemberstack.github.io/webflow-vibe-scripts';
   };
 
   const baseUrl = getBaseUrl();
