@@ -286,11 +286,13 @@ ${answers.repoName}/
   const embedCode = `<!-- Copy this to Webflow Site Settings → Custom Code → Head -->
 <script>
 (function() {
-  // const forceProd = true;  // 🧪 Uncomment to test production scripts
-  const isDev = (typeof forceProd === 'undefined' ? location.hostname.includes('.webflow.io') : !forceProd);
-  const baseUrl = isDev 
+  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
+  // window.SCRIPT_BASE_URL = '${githubPagesUrl}/dist';
+  
+  const isDev = location.hostname.includes('.webflow.io');
+  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : '${githubPagesUrl}';
+    : '${githubPagesUrl}/dist');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Add your global scripts here
@@ -406,11 +408,13 @@ console.log('${scriptName} script loaded');
 
     const embedCode = `<script>
 (function() {
-  // const forceProd = true;  // 🧪 Uncomment to test production scripts
-  const isDev = (typeof forceProd === 'undefined' ? location.hostname.includes('.webflow.io') : !forceProd);
-  const baseUrl = isDev 
+  // UNCOMMENT the next line to force PRODUCTION mode (test before going live!)
+  // window.SCRIPT_BASE_URL = '${githubPagesUrl}/dist';
+  
+  const isDev = location.hostname.includes('.webflow.io');
+  const baseUrl = window.SCRIPT_BASE_URL || (isDev 
     ? 'http://localhost:3000/src' 
-    : '${githubPagesUrl}';
+    : '${githubPagesUrl}/dist');
   
   // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Add your global scripts here
