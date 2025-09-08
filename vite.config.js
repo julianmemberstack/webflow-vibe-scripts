@@ -1,4 +1,26 @@
 import { defineConfig } from 'vite';
+import fs from 'fs';
+import path from 'path';
+
+// Get all script files dynamically
+const getScriptEntries = () => {
+  const entries = {
+    router: './src/router.js'
+  };
+  
+  const scriptsDir = './src/scripts';
+  if (fs.existsSync(scriptsDir)) {
+    const files = fs.readdirSync(scriptsDir);
+    files.forEach(file => {
+      if (file.endsWith('.js')) {
+        const name = file.replace('.js', '');
+        entries[`scripts/${name}`] = `${scriptsDir}/${file}`;
+      }
+    });
+  }
+  
+  return entries;
+};
 
 export default defineConfig({
   server: {
@@ -21,15 +43,11 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     rollupOptions: {
-      input: {
-        router: './src/router.js',
-        // Add your scripts here as they grow
-      },
+      input: getScriptEntries(),
       output: {
         entryFileNames: '[name].js',
         chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]',
-        format: 'iife'
+        assetFileNames: '[name].[ext]'
       }
     },
     minify: true,
