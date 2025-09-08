@@ -1,0 +1,36 @@
+# Development files
+src/
+dist/
+node_modules/
+.git/
+.github/
+
+# Config files
+.webflow-scripts.json
+vite.config.js
+webflow-embed-code.html
+
+# Documentation files not needed in package
+TESTING_STEPS.md
+WEBFLOW_SETUP.md
+SIMPLE_SETUP.md
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Test files
+*.test.js
+*.spec.js
+
+# Build artifacts
+*.log
+.cache/
