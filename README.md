@@ -5,17 +5,65 @@ Write JavaScript locally, see changes instantly, deploy automatically. No more t
 [![npm version](https://img.shields.io/npm/v/create-webflow-scripts.svg)](https://www.npmjs.com/package/create-webflow-scripts)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 🚀 Installation
+## 🎓 Complete Setup Guide
 
-Create your own Webflow scripts project in seconds:
-
+### Step 1: Create Your Project
+Open a terminal in your projects folder (e.g., `Desktop/Projects`) and run:
 ```bash
-npx create-webflow-scripts my-project
-cd my-project
-npm run dev
+npx create-webflow-scripts my-awesome-site
 ```
 
-That's it! The interactive setup will guide you through personalizing everything for YOUR project.
+Go through the setup wizard:
+- Enter your GitHub username
+- Enter repository name (recommend: same as folder name)
+- Enter your Webflow staging domain (e.g., "awesome.webflow.io")
+- Enter production domain (optional, press Enter to skip)
+- Choose to use GitHub Pages (recommended: yes)
+
+### Step 2: Install Dependencies and Start Development
+Open a NEW terminal window in the newly created project folder:
+```bash
+cd my-awesome-site
+npm install
+npm run dev
+```
+Leave this running - it's your development server!
+
+### Step 3: Create GitHub Repository
+1. Go to [github.com/new](https://github.com/new)
+2. Name it the same as your folder (e.g., "my-awesome-site")
+3. DON'T initialize with README (you already have one)
+4. Create repository
+5. Copy the repository URL
+
+### Step 4: Push Code to GitHub
+In your project folder, run:
+```bash
+git init
+git add .
+git commit -m "Initial setup"
+git remote add origin YOUR_GITHUB_REPO_URL
+git push -u origin main
+```
+
+### Step 5: Enable GitHub Pages
+1. Go to your repo on GitHub
+2. Click Settings → Pages
+3. Under "Source", select "GitHub Actions"
+4. Save
+
+Your scripts will now auto-deploy when you push to main!
+
+### Step 6: Add to Webflow and Test
+1. Copy the embed code from `webflow-embed-code.html`
+2. In Webflow: Site Settings → Custom Code → Head Code
+3. Paste the embed code
+4. Publish your Webflow site
+5. Open your `.webflow.io` site
+6. Open browser console (F12)
+7. You should see "Alert script loaded!" after 5 seconds
+
+✅ **Setup Complete!** You're now ready to develop scripts with hot reload!
 
 ## 🎬 Live Demo
 
@@ -101,108 +149,6 @@ When you run `npx create-webflow-scripts my-project`, you get:
 2. Scripts deployed to GitHub Pages (free hosting!)
 3. Your live site loads from `https://[your-username].github.io/[your-repo]`
 
-## 📝 Usage Examples
-
-### Global Script (Loads on Every Page)
-```javascript
-// src/scripts/analytics.js
-console.log('Analytics loaded on every page');
-```
-
-In Webflow embed code:
-```javascript
-window.globalScripts = ['analytics'];
-```
-
-### Page-Specific Script (Single)
-```javascript
-// src/scripts/confetti.js
-console.log('Confetti script loaded for this page');
-```
-
-In that page's settings (Custom Code → Before </body> tag):
-```html
-<script>
-  window.pageScripts = ['confetti'];
-</script>
-```
-
-### Multiple Scripts on One Page
-```javascript
-// src/scripts/slider.js
-console.log('Slider initialized');
-
-// src/scripts/testimonials.js
-console.log('Testimonials loaded');
-```
-
-In that page's settings:
-```html
-<script>
-  window.pageScripts = ['slider', 'testimonials'];
-</script>
-```
-
-## 🎓 Complete Setup Guide
-
-### Step 1: Create Your Project
-Open a terminal in your projects folder (e.g., `Desktop/Projects`) and run:
-```bash
-npx create-webflow-scripts my-awesome-site
-```
-
-Go through the setup wizard:
-- Enter your GitHub username
-- Enter repository name (recommend: same as folder name)
-- Enter your Webflow staging domain (e.g., "awesome.webflow.io")
-- Enter production domain (optional, press Enter to skip)
-- Choose to use GitHub Pages (recommended: yes)
-
-### Step 2: Install Dependencies and Start Development
-Open a NEW terminal window in the newly created project folder:
-```bash
-cd my-awesome-site
-npm install
-npm run dev
-```
-Leave this running - it's your development server!
-
-### Step 3: Create GitHub Repository
-1. Go to [github.com/new](https://github.com/new)
-2. Name it the same as your folder (e.g., "my-awesome-site")
-3. DON'T initialize with README (you already have one)
-4. Create repository
-5. Copy the repository URL
-
-### Step 4: Push Code to GitHub
-In your project folder, run:
-```bash
-git init
-git add .
-git commit -m "Initial setup"
-git remote add origin YOUR_GITHUB_REPO_URL
-git push -u origin main
-```
-
-### Step 5: Enable GitHub Pages
-1. Go to your repo on GitHub
-2. Click Settings → Pages
-3. Under "Source", select "GitHub Actions"
-4. Save
-
-Your scripts will now auto-deploy when you push to main!
-
-### Step 6: Add to Webflow and Test
-1. Copy the embed code from `webflow-embed-code.html`
-2. In Webflow: Site Settings → Custom Code → Head Code
-3. Paste the embed code
-4. Publish your Webflow site
-5. Open your `.webflow.io` site
-6. Open browser console (F12)
-7. You should see "Alert script loaded!" after 5 seconds
-
-✅ **Setup Complete!** You're now ready to develop scripts with hot reload!
-
 ## 🚀 Working with Scripts
 
 ### Creating New Scripts
@@ -250,6 +196,48 @@ git push
 
 GitHub Actions will automatically build and deploy to GitHub Pages (takes ~2 minutes).
 
+## 📝 Usage Examples
+
+### Global Script (Loads on Every Page)
+```javascript
+// src/scripts/analytics.js
+console.log('Analytics loaded on every page');
+```
+
+In Webflow embed code:
+```javascript
+window.globalScripts = ['analytics'];
+```
+
+### Page-Specific Script (Single)
+```javascript
+// src/scripts/confetti.js
+console.log('Confetti script loaded for this page');
+```
+
+In that page's settings (Custom Code → Before </body> tag):
+```html
+<script>
+  window.pageScripts = ['confetti'];
+</script>
+```
+
+### Multiple Scripts on One Page
+```javascript
+// src/scripts/slider.js
+console.log('Slider initialized');
+
+// src/scripts/testimonials.js
+console.log('Testimonials loaded');
+```
+
+In that page's settings:
+```html
+<script>
+  window.pageScripts = ['slider', 'testimonials'];
+</script>
+```
+
 ## ❓ FAQ
 
 ### Why not just use Webflow's custom code?
@@ -269,30 +257,16 @@ npx create-webflow-scripts project-2
 ```
 
 ### Do I need to know Git?
-Basic Git knowledge helps, but the setup guide includes all commands you need.
-
-### Can I add CSS too?
-This tool is for JavaScript only. Keep CSS in Webflow's designer for best performance.
+Basic Git knowledge helps, but the setup guide provides all commands you need!
 
 ## 🤝 Contributing
 
-Found a bug? Have an idea? Contributions welcome!
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+Found a bug or have a feature request? [Open an issue](https://github.com/julianmemberstack/webflow-vibe-scripts/issues)!
 
 ## 📄 License
 
-MIT - Use this however you want!
-
-## 🆘 Support
-
-- **Issues:** [GitHub Issues](https://github.com/julianmemberstack/webflow-vibe-scripts/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/julianmemberstack/webflow-vibe-scripts/discussions)
+MIT © Julian Galluzzo
 
 ---
 
-Created with ❤️ for the Webflow community by [@julianmemberstack](https://github.com/julianmemberstack)
+**Built with ❤️ for the Webflow community**

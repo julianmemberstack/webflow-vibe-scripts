@@ -157,19 +157,9 @@ async function createProject(projectName) {
   // Generate custom README for this project
   const customReadme = `# ${answers.repoName} - Webflow Scripts
 
-This project was created with [create-webflow-scripts](https://www.npmjs.com/package/create-webflow-scripts).
+## 📋 STEP 1: Add This Code to Webflow
 
-## 🚀 Your Project Setup
-
-- **GitHub Username:** ${answers.githubUsername}
-- **Repository:** ${answers.repoName}
-- **Webflow Domain:** ${answers.webflowDomain}
-${answers.customDomain ? `- **Production Domain:** ${answers.customDomain}` : ''}
-${answers.useGitHubPages ? `- **GitHub Pages URL:** https://${answers.githubUsername}.github.io/${answers.repoName}` : ''}
-
-## 📋 Webflow Embed Code
-
-Copy this code to your Webflow Site Settings → Custom Code → Head:
+**Copy this ENTIRE code block to: Webflow → Site Settings → Custom Code → Head Code**
 
 \`\`\`html
 <script>
@@ -192,6 +182,13 @@ Copy this code to your Webflow Site Settings → Custom Code → Head:
 })();
 </script>
 \`\`\`
+
+## ✅ STEP 2: Test Your Setup
+
+1. Publish your Webflow site
+2. Open your .webflow.io site
+3. Open browser console (F12)
+4. You should see "Alert script loaded!" after 5 seconds
 
 ## 🛠 Development
 
@@ -280,6 +277,18 @@ ${answers.repoName}/
 
 - [Full Documentation](https://github.com/julianmemberstack/webflow-vibe-scripts)
 - [Report Issues](https://github.com/julianmemberstack/webflow-vibe-scripts/issues)
+
+## 🔧 Your Project Configuration
+
+- **GitHub Username:** ${answers.githubUsername}
+- **Repository:** ${answers.repoName}
+- **Webflow Domain:** ${answers.webflowDomain}
+${answers.customDomain ? `- **Production Domain:** ${answers.customDomain}` : ''}
+${answers.useGitHubPages ? `- **GitHub Pages URL:** https://${answers.githubUsername}.github.io/${answers.repoName}` : ''}
+
+---
+
+*This project was created with [create-webflow-scripts](https://www.npmjs.com/package/create-webflow-scripts)*
 `;
 
   fs.writeFileSync('./README.md', customReadme);
