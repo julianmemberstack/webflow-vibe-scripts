@@ -93,18 +93,18 @@
         }
       }
 
-      // Load page-specific scripts
+      // Load page-specific scripts (from same scripts folder)
       // Simple format: window.pageScript = 'home'
       if (window.pageScript) {
         console.log('Loading page script:', window.pageScript);
-        await loadScript(`pages/${window.pageScript}`);
+        await loadScript(`scripts/${window.pageScript}`);
       }
 
       // Multiple scripts format: window.pageScripts = ['script1', 'script2']
       if (window.pageScripts && Array.isArray(window.pageScripts)) {
         console.log('Loading page scripts:', window.pageScripts);
         for (const script of window.pageScripts) {
-          await loadScript(`pages/${script}`);
+          await loadScript(`scripts/${script}`);
         }
       }
 

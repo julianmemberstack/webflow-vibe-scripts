@@ -1,9 +1,9 @@
 # 🚀 Simple Setup Guide
 
 ## What This Does
-- Lets you write JavaScript in VS Code instead of Webflow
-- See changes instantly without publishing Webflow
-- Keep all your code in GitHub
+- Write JavaScript in VS Code instead of Webflow
+- See changes instantly without publishing 
+- Keep all code in GitHub
 
 ## Initial Setup (One Time)
 
@@ -16,7 +16,7 @@
     ? 'http://localhost:3000/src' 
     : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
   
-  // List scripts that load on EVERY page (leave empty [] if none)
+  // Scripts that load on EVERY page
   window.globalScripts = ['alert'];  // Just the test alert for now
   
   // Load the router
@@ -27,44 +27,29 @@
 </script>
 ```
 
-### 2. That's it! Publish Webflow once.
+### 2. Publish Webflow once
 
 ---
 
-## 📝 How to Add Scripts
+## 📝 How to Load Scripts
 
-### Add a Script to ALL Pages
-
-1. **Edit the Webflow site settings code above:**
+### Load Scripts on ALL Pages
+Edit the site settings code:
 ```javascript
-// Change from:
-window.globalScripts = ['alert'];
-
-// To (adding 'tracking'):
-window.globalScripts = ['alert', 'tracking'];
+window.globalScripts = ['alert', 'tracking', 'analytics'];
 ```
 
-2. **Create the file:** `src/scripts/tracking.js`
-
-3. **Publish Webflow** (required when changing script lists)
-
-### Add a Script to ONE Page Only
-
-1. **In that page's settings → Custom Code → Before </body>:**
+### Load Scripts on SPECIFIC Pages Only
+In that page's settings → Custom Code → Before </body>:
 ```html
-<!-- For one script -->
-<script>window.pageScript = 'home';</script>
+<!-- One script -->
+<script>window.pageScript = 'home-hero';</script>
 
-<!-- OR for multiple scripts -->
-<script>window.pageScripts = ['hero', 'testimonials'];</script>
+<!-- Multiple scripts -->
+<script>window.pageScripts = ['slider', 'testimonials'];</script>
 ```
 
-2. **Create the file(s):**
-   - `src/pages/home.js`
-   - `src/pages/hero.js`
-   - `src/pages/testimonials.js`
-
-3. **Publish Webflow** (required when adding page scripts)
+**All scripts go in the same `src/scripts/` folder!**
 
 ---
 
@@ -74,115 +59,68 @@ window.globalScripts = ['alert', 'tracking'];
 ```bash
 npm run dev
 ```
-Keep this running while you work.
+Keep this running.
 
-### Edit Scripts
-1. Edit any `.js` file in `src/`
-2. Save the file
-3. Refresh your staging site
-4. See changes instantly! (No Webflow publish needed)
+### Create a New Script
+1. Create `src/scripts/my-feature.js`
+2. Add to Webflow (either global or page-specific)
+3. Publish Webflow
 
-### Deploy to Production
-```bash
-git add .
-git commit -m "Update scripts"
-git push
-```
-Wait 2 minutes → Changes are live on production
+### Edit Existing Scripts
+1. Edit the file
+2. Save
+3. Refresh browser (no Webflow publish needed!)
 
 ---
 
-## 📂 Where Scripts Live
+## 📂 Simple Structure
 
 ```
 src/
-├── scripts/        # Global scripts (load on every page)
-│   ├── alert.js    # Test alert (shows after 5 seconds)
-│   └── [your-script].js
-│
-└── pages/         # Page-specific scripts
-    ├── home.js
-    ├── about.js
-    └── contact.js
+└── scripts/       # ALL your scripts go here
+    ├── alert.js   # Test alert
+    ├── tracking.js
+    ├── slider.js
+    ├── forms.js
+    └── whatever.js
 ```
+
+That's it! One folder for all scripts.
 
 ---
 
-## ❓ Common Questions
-
-### When do I need to publish Webflow?
-Only when you:
-- Add/remove scripts from the lists
-- Change page elements/styles
-- Add script tags to new pages
-
-NOT needed when:
-- Editing existing script files
-- Fixing bugs in JavaScript
-- Tweaking functionality
-
-### What about critical CSS or head scripts?
-Put those directly in Webflow! This system is for JavaScript functionality only.
-
-### Script not loading?
-Check:
-1. Is `npm run dev` running?
-2. Did you add the script name to Webflow?
-3. Did you publish Webflow after adding?
-4. Check browser console for errors
-
----
-
-## 🎯 Quick Examples
-
-### Example: Add popup functionality to homepage
-
-**Step 1:** In homepage settings add:
-```html
-<script>window.pageScript = 'home-popup';</script>
-```
-
-**Step 2:** Create `src/pages/home-popup.js`:
-```javascript
-console.log('Popup script loaded');
-
-// Show popup after 3 seconds
-setTimeout(() => {
-  alert('Welcome to our site!');
-}, 3000);
-```
-
-**Step 3:** Publish Webflow → Done!
+## 🎯 Examples
 
 ### Example: Add tracking to all pages
+1. Create `src/scripts/tracking.js`
+2. Update site settings: `window.globalScripts = ['alert', 'tracking'];`
+3. Publish Webflow
 
-**Step 1:** Update site settings:
-```javascript
-window.globalScripts = ['alert', 'analytics'];
-```
+### Example: Add slider to homepage only
+1. Create `src/scripts/slider.js`
+2. In homepage settings add: `<script>window.pageScript = 'slider';</script>`
+3. Publish Webflow
 
-**Step 2:** Create `src/scripts/analytics.js`:
-```javascript
-console.log('Analytics loaded');
-
-// Track page views
-console.log('Page viewed:', window.location.pathname);
-```
-
-**Step 3:** Publish Webflow → Tracking on every page!
+### Example: Multiple scripts on product pages
+1. Create scripts: `gallery.js`, `reviews.js`, `cart.js`
+2. In product page template add: `<script>window.pageScripts = ['gallery', 'reviews', 'cart'];</script>`
+3. Publish Webflow
 
 ---
 
-## 🚦 Status Check
+## ❓ Quick Answers
 
-✅ **It's working if you see in console:**
-- "Script Router initialized"
-- "Environment: Development" (on staging)
-- "Loaded: scripts/animations"
-- Your custom console.log messages
+**When to publish Webflow?**
+- When adding/removing scripts from lists
+- When adding script tags to new pages
+- NOT when editing JavaScript code
 
-❌ **If not working:**
-- Make sure `npm run dev` is running
-- Hard refresh (Cmd+Shift+R)
-- Check the script name matches exactly
-- Verify you published Webflow after changes
+**Why use global vs page scripts?**
+- Global = loads everywhere (analytics, tracking)
+- Page = loads on specific pages (homepage hero, contact form)
+
+**Script not loading?**
+1. Check `npm run dev` is running
+2. Check script name matches exactly
+3. Did you publish Webflow after adding?
+4. Check browser console for errors
