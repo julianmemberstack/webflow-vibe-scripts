@@ -16,8 +16,8 @@
     ? 'http://localhost:3000/src' 
     : 'https://julianmemberstack.github.io/webflow-vibe-scripts/dist';
   
-  // List scripts that load on EVERY page (leave empty if none)
-  window.globalScripts = ['animations', 'forms'];
+  // List scripts that load on EVERY page (leave empty [] if none)
+  window.globalScripts = ['alert'];  // Just the test alert for now
   
   // Load the router
   const script = document.createElement('script');
@@ -38,10 +38,10 @@
 1. **Edit the Webflow site settings code above:**
 ```javascript
 // Change from:
-window.globalScripts = ['animations', 'forms'];
+window.globalScripts = ['alert'];
 
 // To (adding 'tracking'):
-window.globalScripts = ['animations', 'forms', 'tracking'];
+window.globalScripts = ['alert', 'tracking'];
 ```
 
 2. **Create the file:** `src/scripts/tracking.js`
@@ -97,9 +97,8 @@ Wait 2 minutes → Changes are live on production
 ```
 src/
 ├── scripts/        # Global scripts (load on every page)
-│   ├── animations.js
-│   ├── forms.js
-│   └── tracking.js
+│   ├── alert.js    # Test alert (shows after 5 seconds)
+│   └── [your-script].js
 │
 └── pages/         # Page-specific scripts
     ├── home.js
@@ -159,7 +158,7 @@ setTimeout(() => {
 
 **Step 1:** Update site settings:
 ```javascript
-window.globalScripts = ['animations', 'forms', 'analytics'];
+window.globalScripts = ['alert', 'analytics'];
 ```
 
 **Step 2:** Create `src/scripts/analytics.js`:

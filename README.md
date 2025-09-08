@@ -79,9 +79,7 @@ webflow-vibe-scripts/
 ├── src/
 │   ├── router.js          # Main router (don't modify unless needed)
 │   ├── scripts/           # Global/shared scripts
-│   │   ├── analytics.js   # Analytics tracking
-│   │   ├── animations.js  # Animation utilities
-│   │   ├── forms.js       # Form enhancements
+│   │   ├── alert.js       # Test alert (shows after 5 seconds)
 │   │   └── [your-script].js
 │   └── pages/            # Page-specific scripts
 │       ├── home.js
