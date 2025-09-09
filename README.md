@@ -85,8 +85,8 @@ Want to see it in action? Check out the working demo:
     ? 'http://localhost:3000/src' 
     : 'https://julianmemberstack.github.io/webflow-vibe-scripts/src');
   
-  // Scripts that load on EVERY page
-  window.globalScripts = ['alert'];
+  // Scripts that load on EVERY page - comment the next line out if you don't want any sitewide scripts
+  window.globalScripts = ['alert'];  // Comment this entire line out if no global scripts needed
   
   // Load the router
   const script = document.createElement('script');
