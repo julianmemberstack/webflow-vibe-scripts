@@ -1,6 +1,6 @@
 {
   "name": "create-webflow-scripts",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Easy script management for Webflow sites - write locally, deploy automatically",
   "type": "module",
   "bin": {
